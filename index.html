@@ -1,0 +1,111 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="root"></div>
+    <script src="https://download.agora.io/edu-apaas/release/edu_sdk@2.9.0.bundle.js"></script>
+    <!-- Introducing Widget, 2.9.0 is the sample version number. You can check the latest version number through the release notes or GitHub warehouse branch. (Widgets before 2.9.0 are packaged together with the SDK, and there is no need to introduce this library) -->
+    <script src="https://download.agora.io/edu-apaas/release/edu_widget@2.9.0.bundle.js"></script>
+
+    <style>
+        #root {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+    <script type="text/javascript">
+        // Configure the SDK and provide your App ID
+        AgoraEduSDK.config({
+            appId: 'b026eace716a42de90c47ec7ba3a734d',
+            region: 'AP'
+        });
+
+
+        let resourceUuid = "resourceUuidHere"
+        let resourceName = "my ppt slide"
+        let sceneInfos = []
+        let sceneInfo = {
+            name: "1",
+            ppt: {
+                src: "pptx://....",
+                width: 480,
+                height: 360
+            }
+        }
+        sceneInfos.push(sceneInfo)
+
+        let courseWareList = [{
+            resourceUuid,
+            resourceName,
+            size: 10000,
+            updateTime: new Date().getTime(),
+            ext: "pptx",
+            url: null,
+            taskUuid: "xxxx",
+            taskToken: "xxx",
+        }]
+
+
+        // Launch Flexible Classroom
+        AgoraEduSDK.launch(document.querySelector('#root'), {
+            userUuid: 'tarun',
+            userName: 'tarun rathore',
+            roomUuid: 'roomUuid123',
+            roleType: 1, // Role type: 1 for teachers, 2 for students.
+            roomType: 4, // Room type: 0 for a one-to-one classroom, 2 for a lecture hall (a common lecture hall or a vocational lecture hall depending on room sub-type), 4 for a small classroom.
+            roomSubType: 0, // Room sub-type. The default value is 0. To set a vocational lecture hall, set roomType as 2 and roomSubType as 1.
+            roomName: 'roomNameHere',
+            pretest: true, // Whether to enable the pre-class device test.
+            rtmToken: '006b026eace716a42de90c47ec7ba3a734dIAC7Y28dpG8PBMKjpOMeJhAa/DvRxYDiMY2hJYFT0SNCzKZc3eYAAAAAEAAC1h+s1YpgZQEA6ANlR19l', // In a test environment, you can use a temporary token; in a production or security environment, Agora strongly recommends that you use a server-generated token.
+            language: 'en', // The language on the classroom UI: zh for Chinese and en for English.
+            duration: 60 * 30, // The duration of the class (in seconds).
+            startTime: new Date().getTime(),
+            courseWareList: [{
+                resourceName: 'youtube - RTE2022',
+                resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
+                ext: 'alf',
+                url: 'http://youtube.com/watch?v=p3Bt6rAYIsQ',
+                size: 0,
+                updateTime: Date.now(),
+                initOpen: false,
+            },
+            {
+                resourceName: 'PPT',
+                resourceUuid: `${Math.floor(Math.random() * 1000) + Date.now()}`,
+                ext: 'alf',
+                url: 'https://docs.google.com/presentation/d/e/2PACX-1vS96huhUtXdI9W_38L0lyn-ymKpbZy9uGm0fVAeQtcTbyBimSXjMLwsUMg6wpxYG9lS_4xiI-bxrJAd/embed?start=true&loop=false&delayms=3000',
+                size: 0,
+                updateTime: Date.now(),
+                initOpen: false,
+            }
+        ],
+            // virtualBackgroundImages: [], // Virtual background picture resource list
+            webrtcExtensionBaseUrl: 'https://solutions-apaas.agora.io/static', //WebRTC Plug-in deployment address
+            uiMode: 'light', // The theme of the classroom UI: light for the light mode, dark for the dark mode.
+            widgets: {
+                popupQuiz: AgoraSelector,
+                countdownTimer: AgoraCountdown,
+                easemobIM: AgoraHXChatWidget,
+                mediaPlayer: FcrStreamMediaPlayerWidget,
+                poll: AgoraPolling,
+                watermark: FcrWatermarkWidget,
+                webView: FcrWebviewWidget,
+                netlessBoard: FcrBoardWidget
+            },
+            listener: (evt, args) => {
+            },
+        }).then(() => {
+            console.log('start launch');
+        }).catch((e) => {
+            console.error('failed to launch', e);
+        });
+    </script>
+
+</body>
+
+</html>
