@@ -88,13 +88,13 @@
             webrtcExtensionBaseUrl: 'https://solutions-apaas.agora.io/static', //WebRTC Plug-in deployment address
             uiMode: 'light', // The theme of the classroom UI: light for the light mode, dark for the dark mode.
             widgets: {
-                // popupQuiz: AgoraSelector,
-                // countdownTimer: AgoraCountdown,
-                // easemobIM: AgoraHXChatWidget,
-                // mediaPlayer: FcrStreamMediaPlayerWidget,
+                popupQuiz: AgoraSelector,
+                countdownTimer: AgoraCountdown,
+                easemobIM: AgoraHXChatWidget,
+                mediaPlayer: FcrStreamMediaPlayerWidget,
                 poll: AgoraPolling,
-                // watermark: FcrWatermarkWidget,
-                // webView: FcrWebviewWidget,
+                watermark: FcrWatermarkWidget,
+                webView: FcrWebviewWidget,
                 netlessBoard: FcrBoardWidget
             },
             listener: (evt, args) => {
